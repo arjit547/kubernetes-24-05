@@ -22,4 +22,4 @@ phases:
       - aws eks --region us-east-1 update-kubeconfig  --name terraform-eks-demo
       #- KUBECONFIG=/root/.kube/config
       #- kubectl apply -f HomeApp.yaml
-      - kubectl apply --kubeconfig /root/.kube/config -f HomeApp.yaml
+      - kubectl apply --kubeconfig /root/.kube/config --v=8 -f HomeApp.yaml
