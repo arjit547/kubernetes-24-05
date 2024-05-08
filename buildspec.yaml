@@ -1,31 +1,22 @@
 version: 0.2
+
 phases:
   install:
     runtime-versions:
-      nodejs: 12
-    commands:
-      - curl -o aws-iam-authenticator https://amazon-eks.s3.us-west-2.amazonaws.com/1.22.2/2022-01-31/bin/darwin/amd64/aws-iam-authenticator
-      - chmod +x ./aws-iam-authenticator
-      - sudo mv ./aws-iam-authenticator /usr/local/bin/
-      - curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
-      - chmod +x ./kubectl
-      - mv ./kubectl /usr/local/bin/kubectl
+      nodejs: 14
   pre_build:
     commands:
+      - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 578813437933.dkr.ecr.us-east-1.amazonaws.com
+      - echo Updating kubeconfig for Amazon EKS...
+      - aws eks --region us-east-1 update-kubeconfig --name terraform-eks-demo
   build:
     commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
       - docker build -t htech .
       - docker tag htech:latest 578813437933.dkr.ecr.us-east-1.amazonaws.com/htech:latest
-      - docker push 578813437933.dkr.ecr.us-east-1.amazonaws.com/htech:latest
   post_build:
     commands:
-      - aws eks --region us-east-1 update-kubeconfig  --name terraform-eks-demo --role-arn arn:aws:eks:us-east-1:578813437933:cluster/terraform-eks-demo
-      - cat ~/.kube/config
-      - aws sts get-caller-identity
-      - kubectl config view --minify=true
-      - kubectl apply --kubeconfig /root/.kube/config --v=8 -f HomeApp.yaml --validate=false
-      - printf '[{"name":"HomeApp.yaml","imageUri":"578813437933.dkr.ecr.us-east-1.amazonaws.com/htech"}]' 578813437933.dkr.ecr.us-east-1.amazonaws.com/htech:latest > HomeApp.yaml
-artifacts:
-  files:
-    - HomeApp.yaml
+      - echo Pushing the Docker image to ECR...
+      - docker push 578813437933.dkr.ecr.us-east-1.amazonaws.com/htech:latest
