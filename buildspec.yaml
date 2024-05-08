@@ -20,5 +20,6 @@ phases:
       - docker push 578813437933.dkr.ecr.us-east-1.amazonaws.com/htech:latest
       - echo Deploying to EKS...
       - aws eks --region us-east-1 update-kubeconfig  --name terraform-eks-demo
-      - KUBECONFIG=/root/.kube/config
-      - kubectl apply -f HomeApp.yaml
+      #- KUBECONFIG=/root/.kube/config
+      #- kubectl apply -f HomeApp.yaml
+      - kubectl apply --kubeconfig /root/.kube/config -f HomeApp.yaml
