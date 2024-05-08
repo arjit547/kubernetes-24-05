@@ -21,8 +21,8 @@ phases:
       - echo Pushing Docker image to Amazon ECR...
       - docker push 578813437933.dkr.ecr.us-east-1.amazonaws.com/htech:latest
       - aws eks --region us-east-1 update-kubeconfig  --name terraform-eks-demo
-      - aws sts get-caller-identity
       - aws eks --region us-east-1 describe-cluster --name terraform-eks-demo --query cluster.status
       - echo Updating Kubernetes deployment...
+      - kubectl delete deployment.apps/deployment-2048100 -n game-204873
+      - kubectl delete service/service-2048102 -n game-204873
       - kubectl apply -f HomeApp.yaml
-      - kubectl rollout status deployment/deployment-2048100
