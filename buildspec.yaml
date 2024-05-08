@@ -24,7 +24,7 @@ phases:
       - cat ~/.kube/config
       - aws sts get-caller-identity
       - kubectl config view --minify=true
-      - kubectl apply -f HomeApp.yaml
+      - kubectl apply --kubeconfig /root/.kube/config --v=8 -f HomeApp.yaml --validate=false
       - printf '[{"name":"HomeApp.yaml","imageUri":"578813437933.dkr.ecr.us-east-1.amazonaws.com/htech"}]' 578813437933.dkr.ecr.us-east-1.amazonaws.com/htech:latest > HomeApp.yaml
 artifacts:
   files:
