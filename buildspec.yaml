@@ -12,10 +12,6 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - echo Installing dependencies...
-      - npm install
-      - echo Building React app...
-      - npm run build
       - echo Building Docker image...
       - docker build -t htech .
       - docker tag htech:latest 578813437933.dkr.ecr.us-east-1.amazonaws.com/htech:latest
