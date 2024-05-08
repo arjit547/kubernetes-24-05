@@ -7,22 +7,34 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
+      # Log in to Amazon ECR to authenticate Docker CLI
       - aws --version
+      # Verify AWS CLI version
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 578813437933.dkr.ecr.us-east-1.amazonaws.com
+      # Get ECR login password and log in to ECR Docker registry
   build:
     commands:
       - echo Build started on `date`
+      # Start of build phase
       - echo Building Docker image...
+      # Build Docker image
       - docker build -t htech .
+      # Tag Docker image
       - docker tag htech:latest 578813437933.dkr.ecr.us-east-1.amazonaws.com/htech:latest
+      # Tag Docker image for ECR repository
   post_build:
     commands:
       - echo Build completed on `date`
+      # Start of post_build phase
       - echo Pushing Docker image to Amazon ECR...
+      # Push Docker image to Amazon ECR
       - docker push 578813437933.dkr.ecr.us-east-1.amazonaws.com/htech:latest
-      - aws eks --region us-east-1 update-kubeconfig  --name terraform-eks-demo
+      # Update kubeconfig to authenticate with the EKS cluster
+      - aws eks --region us-east-1 update-kubeconfig --name terraform-eks-demo
+      # Describe the status of the EKS cluster
       - aws eks --region us-east-1 describe-cluster --name terraform-eks-demo --query cluster.status
-      - echo Updating Kubernetes deployment...
+      # Delete existing Kubernetes deployment and service
       - kubectl delete deployment.apps/deployment-2048100 -n game-204873
       - kubectl delete service/service-2048102 -n game-204873
+      # Apply Kubernetes manifests to deploy the application
       - kubectl apply -f HomeApp.yaml
