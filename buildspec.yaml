@@ -19,5 +19,6 @@ phases:
     commands:
       - echo Pushing the Docker image to ECR...
       - docker push 578813437933.dkr.ecr.us-east-1.amazonaws.com/htech:latest
+      - aws eks --region us-east-1 update-kubeconfig  --name terraform-eks-demo
       #- kubectl delete -f HomeApp.yaml
-      - kubectl apply -f HomeApp.yaml
+      #- kubectl apply -f HomeApp.yaml
