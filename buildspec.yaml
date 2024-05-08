@@ -36,5 +36,6 @@ phases:
       # Delete existing Kubernetes deployment and service
       #- kubectl delete deployment.apps/deployment-2048100 -n game-204873
       #- kubectl delete service/service-2048102 -n game-204873
+      - aws eks --region us-east-1 update-kubeconfig  --name terraform-eks-demo
       # Apply Kubernetes manifests to deploy the application
       - kubectl apply -f HomeApp.yaml
