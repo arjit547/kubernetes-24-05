@@ -30,7 +30,7 @@ phases:
       # Push Docker image to Amazon ECR
       - docker push 578813437933.dkr.ecr.us-east-1.amazonaws.com/htech:latest
       # Update kubeconfig to authenticate with the EKS cluster
-      - aws eks --region us-east-1 update-kubeconfig --name terraform-eks-demo
+      - aws eks --region us-east-1 update-kubeconfig  --name terraform-eks-demo
       # Describe the status of the EKS cluster
       - aws eks --region us-east-1 describe-cluster --name terraform-eks-demo --query cluster.status
       # Delete existing Kubernetes deployment and service
