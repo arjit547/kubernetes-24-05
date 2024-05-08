@@ -1,0 +1,29 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 14
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws --version
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 578813437933.dkr.ecr.us-east-1.amazonaws.com
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Installing dependencies...
+      - npm install
+      - echo Building React app...
+      - npm run build
+      - echo Building Docker image...
+      - docker build -t htech .
+      - docker tag htech:latest 578813437933.dkr.ecr.us-east-1.amazonaws.com/htech:latest
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing Docker image to Amazon ECR...
+      - docker push 578813437933.dkr.ecr.us-east-1.amazonaws.com/htech:latest
+      - echo Updating Kubernetes deployment...
+      - kubectl apply -f HomeApp.yaml
+      - kubectl rollout status deployment/deployment-2048100
