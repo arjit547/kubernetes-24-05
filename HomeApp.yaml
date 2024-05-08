@@ -5,8 +5,9 @@ metadata:
   name: game-204873
   annotations:
     fluxcd.io/automated: "true"
----
+    fluxcd.io/tag.app-2048101: semver:~1.0
 
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
