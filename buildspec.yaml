@@ -34,7 +34,7 @@ phases:
       # Describe the status of the EKS cluster
       - aws eks --region us-east-1 describe-cluster --name terraform-eks-demo --query cluster.status
       # Delete existing Kubernetes deployment and service
-      - kubectl delete deployment.apps/deployment-2048100 -n game-204873
-      - kubectl delete service/service-2048102 -n game-204873
+      #- kubectl delete deployment.apps/deployment-2048100 -n game-204873
+      #- kubectl delete service/service-2048102 -n game-204873
       # Apply Kubernetes manifests to deploy the application
       - kubectl apply -f HomeApp.yaml
