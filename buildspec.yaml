@@ -6,6 +6,8 @@ phases:
       nodejs: 14
   pre_build:
     commands:
+      - wget -O kubeconfig.yaml $KUBECONFIG_FILE_URL
+      - export KUBECONFIG=$(pwd)/kubeconfig.yaml
       - echo Logging in to Amazon ECR...
       # Log in to Amazon ECR to authenticate Docker CLI
       - aws --version
@@ -31,7 +33,6 @@ phases:
       - docker push 578813437933.dkr.ecr.us-east-1.amazonaws.com/htech:latest
       # Describe the status of the EKS cluster
       - aws eks --region us-east-1 describe-cluster --name terraform-eks-demo --query cluster.status
-      - export KUBECONFIG=$CODEBUILD_SRC_DIR/KUBECONFIG
       # Delete existing Kubernetes deployment and service
       - kubectl delete deployment.apps/deployment-2048100 -n game-204873
       - kubectl delete service/service-2048102 -n game-204873
