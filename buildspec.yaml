@@ -24,6 +24,7 @@ phases:
       - cat ~/.kube/config
       - aws sts get-caller-identity
       - kubectl config view --minify=true
+      - cat HomeApp.yaml
       - kubectl delete -f HomeApp.yaml
       - kubectl apply -f HomeApp.yaml
       - printf '[{"name":"app-2048101","imageUri":"578813437933.dkr.ecr.us-east-1.amazonaws.com/htech"}]' 578813437933.dkr.ecr.us-east-1.amazonaws.com/htech:latest > imagedefinitions.json
