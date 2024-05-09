@@ -20,14 +20,13 @@ phases:
       - docker push 578813437933.dkr.ecr.us-east-1.amazonaws.com/htech:latest
   post_build:
     commands:
-      - aws eks --region us-east-1 update-kubeconfig  --name terraform-eks-demo --role-arn arn:aws:eks:us-east-1:578813437933:cluster/terraform-eks-demo
+      - echo "Fetching AWS credentials from CodeBuild environment"
+      - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+      - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+      - aws eks --region us-east-1 update-kubeconfig  --name terraform-eks-demo
       - cat ~/.kube/config
       - aws sts get-caller-identity
       - kubectl config view --minify=true
       - cat HomeApp.yaml
       - kubectl delete -f HomeApp.yaml
       - kubectl apply -f HomeApp.yaml
-      - printf '[{"name":"app-2048101","imageUri":"578813437933.dkr.ecr.us-east-1.amazonaws.com/htech"}]' 578813437933.dkr.ecr.us-east-1.amazonaws.com/htech:latest > imagedefinitions.json
-artifacts:
-  files:
-    - imagedefinitions.json
