@@ -3,18 +3,13 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: game-204873
-  annotations:
-    fluxcd.io/automated: "true"
-    fluxcd.io/tag.app-2048101: semver:~1.0
-
 ---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: game-204873
   name: deployment-2048100
-  annotations:
-    fluxcd.io/automated: "true"
 spec:
   selector:
     matchLabels:
@@ -38,8 +33,6 @@ kind: Service
 metadata:
   namespace: game-204873
   name: service-2048102
-  annotations:
-    fluxcd.io/automated: "true"
 spec:
   ports:
     - port: 80
