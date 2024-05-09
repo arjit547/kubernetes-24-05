@@ -28,4 +28,4 @@ phases:
       - aws sts get-caller-identity
       - kubectl config view --minify=true
       - cat HomeApp.yaml
-      - kubectl apply -f HomeApp.yaml
+      - kubectl apply -f HomeApp.yaml --force
