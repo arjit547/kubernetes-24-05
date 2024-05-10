@@ -27,6 +27,5 @@ phases:
       - cat ~/.kube/config
       - aws sts get-caller-identity
       - kubectl config view --minify=true
-      - cat sameapp.yaml
       - kubectl delete -f Deployment.yaml
       - kubectl apply -f Deployment.yaml
