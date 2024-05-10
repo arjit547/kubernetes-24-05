@@ -2,7 +2,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 12
+      nodejs: 14
     commands:
       - curl -o aws-iam-authenticator https://amazon-eks.s3.us-west-2.amazonaws.com/1.22.2/2022-01-31/bin/darwin/amd64/aws-iam-authenticator
       - chmod +x ./aws-iam-authenticator
@@ -15,9 +15,9 @@ phases:
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 578813437933.dkr.ecr.us-east-1.amazonaws.com
   build:
     commands:
-      - docker build -t htech .
-      - docker tag htech:latest 578813437933.dkr.ecr.us-east-1.amazonaws.com/htech:latest
-      - docker push 578813437933.dkr.ecr.us-east-1.amazonaws.com/htech:latest
+      - docker build -t deadpool .
+      - docker tag deadpool:latest 578813437933.dkr.ecr.us-east-1.amazonaws.com/deadpool:latest
+      - docker push 578813437933.dkr.ecr.us-east-1.amazonaws.com/deadpool:latest
   post_build:
     commands:
       - echo "Fetching AWS credentials from CodeBuild environment"
