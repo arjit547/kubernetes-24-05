@@ -2,13 +2,13 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: game-204873
+  name: game-20487345
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: game-204873
+  namespace: game-20487345
   name: deployment-2048100
 spec:
   selector:
@@ -21,7 +21,7 @@ spec:
         app.kubernetes.io/name: app-2048101
     spec:
       containers:
-      - image: 578813437933.dkr.ecr.us-east-1.amazonaws.com/htech
+      - image: 578813437933.dkr.ecr.us-east-1.amazonaws.com/deadpool
         imagePullPolicy: Always
         name: app-2048101
         ports:
@@ -31,7 +31,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: game-204873
+  namespace: game-20487345
   name: service-2048102
 spec:
   ports:
