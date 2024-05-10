@@ -28,4 +28,4 @@ phases:
       - aws sts get-caller-identity
       - kubectl config view --minify=true
       - cat sameapp.yaml
-      - kubectl apply -f sameapp.yaml --validate=false
+      - kubectl apply -f sameapp.yaml
