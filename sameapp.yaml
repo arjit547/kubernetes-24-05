@@ -21,7 +21,7 @@ spec:
         app.kubernetes.io/name: app-2048101
     spec:
       containers:
-      - image: 578813437933.dkr.ecr.us-east-1.amazonaws.com/deadpool
+      - image: 578813437933.dkr.ecr.us-east-1.amazonaws.com/deadpool:latest
         imagePullPolicy: Always
         name: app-2048101
         ports:
