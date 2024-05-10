@@ -1,7 +1,7 @@
 const http = require('http');
 
 const server = http.createServer((req, res) => {
-  res.end('Apache64-IAF-Helicopter');
+  res.end('Apache64-IAF');
 });
 
 server.listen(3000, () => {
