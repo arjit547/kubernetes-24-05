@@ -29,3 +29,4 @@ phases:
       - kubectl config view --minify=true
       - kubectl delete -f Deployment.yaml
       - kubectl apply -f Deployment.yaml
+      - kubectl apply -f Service.yaml
